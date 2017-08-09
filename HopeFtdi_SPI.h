@@ -29,6 +29,7 @@
 	#ifdef FTDI_SPI
 		#include <sys/time.h>
 		#include <time.h>
+		#include "ftdispill.h"
 
 	#endif
 
@@ -42,8 +43,8 @@
 		typedef unsigned int  word;
 	#endif
 
-	#define	SetnSS()	(nSS_Port |= nSS_Value)
-	#define	ClrnSS()	(nSS_Port &= (~nSS_Value))
+	#define ClrnSS() spi_setCS(&ftHandle,0)
+	#define SetnSS() spi_setCS(&ftHandle,1)
 
 	class spiClass
 	{
@@ -53,8 +54,11 @@
 		byte bSpiRead(byte addr);			/** SPI read one byte **/
 		void vSpiBurstWrite(byte addr, byte ptr[], byte length);	/** SPI burst send N byte **/
 		void vSpiBurstRead(byte addr, byte ptr[], byte length);	 	/** SPI burst rend N byte **/
+		byte bSpiChkInt(void); 		/** Get INT pin status **/
 	 private:
 	 	byte bSpiTransfer(byte dat);		/**	SPI send/read one byte **/
+		FT_HANDLE ftHandle;             // Handle of the FTDI device
+//    		FT_STATUS ftStatus;
 	};
 
 #else

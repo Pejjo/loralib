@@ -25,7 +25,12 @@
  */
 
 #include <HopeDuino_LoRa.h> 
+#ifdef FTDI_SPI
+	#include <stdlib.h>
+	#include <bcm2835.h>
 
+	
+#endif
 
 loraClass radio;
 

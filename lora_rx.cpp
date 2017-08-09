@@ -25,10 +25,9 @@
  */
 
 #include <HopeDuino_LoRa.h> 
-#include <HopeDuino_UART.h>
+#include <stdio.h>
 
 loraClass radio;
-uartClass uart;
 
 byte getstr[21];
 
@@ -49,15 +48,19 @@ void setup()
 
  radio.vInitialize();
  radio.vGoRx();
- uart.vUartInit(9600, _8N1); 
 }
 
 void loop()
 {
  if(radio.bGetMessage(getstr)!=0)
     {
-    uart.vUartPutNByte(getstr, 21);
-    uart.vUartNewLine();
+    printf("%s\n",getstr);
     }  	
 }
  
+int main(void)
+{
+	setup();
+	while(1)
+		loop();
+}

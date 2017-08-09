@@ -12,6 +12,7 @@
                 #define DIO0In()
 		#define _delay_ms delay
 		#define _delay_us delayMicroseconds
+		#define DIO0_H() Spi.bSpiChkInt()
 	#endif
 #endif
 

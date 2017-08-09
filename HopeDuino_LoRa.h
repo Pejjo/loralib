@@ -47,33 +47,7 @@
 		#define __DELAY_BACKWARD_COMPATIBLE__
 	#endif 
 
-	#include <avr/io.h>
-	#include <util/delay.h>
-	#include "HopeDuino_SPI.h"
-	
-	/** Hardware brief **/
-	/** POR & DIO0 is must be connect **/
-	//PORTB						//DDRx		PORTx		PINx
-	#define DIO0	0x01		// 0		  0          1
-	#define	POR		0x02		// 0          0          1
-
-	//PORTD
-	/** DIO1~DIO4 can be select to connect **/
-	#define	DIO4	0x10		// 0          0          1
-	#define	DIO3	0x20		// 0          0          1
-	#define	DIO2    0x40		// 0          0          1
-	#define	DIO1    0x80		// 0          0          1
-	
-	//Output
-	#define POROut()	(DDRB |= POR)
-	#define	PORIn()		(DDRB &= (~POR))
-	#define SetPOR()	(PORTB |= POR)
-	#define	ClrPOR()	(PORTB &= (~POR))	
-	
-	//Input
-	#define DIO0In()	(DDRD &= (~DIO0))
-	#define	DIO0_H()	((PINB&DIO0)==DIO0)
-	#define	DIO0_L()	((PINB&DIO0)==0)
+	#include "HopeFtdi_SPI.h"
 	
 	typedef union  
 	{

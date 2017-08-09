@@ -24,8 +24,8 @@
  * author     QY Ruan
  */
 
-#include "HopeDuino_SPI.h"
-
+#include "HopeFtdi_SPI.h"
+#include <stdlib.h>
 /**********************************************************
 **Name: 	vSpiInit
 **Func: 	Init Spi Config
@@ -33,11 +33,8 @@
 **********************************************************/
 void spiClass::vSpiInit(void)
 {
- 	nSS_Dir |= (nSS_Value+_SDI+_SCK);	//nSS/SDI/SCK as Output
- 	nSS_Dir &= (~_SDO);					//SDO as Input
-	SetnSS();							//Output High level
-	SPCR = _BV(SPE)|_BV(MSTR);			//SPI Master/MSB First/00/ Fcpu/4
-	SPSR = 0x00;
+	if (spi_init(&ftHandle,0,"FTOH7Z0A"))
+		exit(1);
 }
 
 /**********************************************************
@@ -46,11 +43,16 @@ void spiClass::vSpiInit(void)
 **Input:
 **Output:  
 **********************************************************/
-byte spiClass::bSpiTransfer(byte dat)
+byte spiClass::bSpiTransfer(byte idata)
 {
- SPDR = dat;
- while (!(SPSR & _BV(SPIF)));		//wait for send over
- return(SPDR);
+	byte odata;
+
+//	if (delay) {
+//		usleep(delay);
+//	}
+
+        spi_trans(&ftHandle,1, (char *)&odata, (char *)&idata);
+	return odata;
 }
 
 /**********************************************************
@@ -127,5 +129,17 @@ void spiClass::vSpiBurstRead(byte addr, byte ptr[], byte length)
  		}
  	}	
  return;
+}
+
+/**********************************************************
+**Name:         bSpiChkInt
+**Func:         Reads INT pin status
+**Output:       INT Pin state
+**********************************************************/
+byte spiClass::bSpiChkInt(void)
+{
+	byte tmp;
+	tmp=spi_getInt(&ftHandle);
+	return(tmp);
 }
 
