@@ -3,10 +3,10 @@
 # Caution: requires bcm2835 library to be already installed
 # http://www.airspayce.com/mikem/bcm2835/
 
-CC       = g++-4.7
-CFLAGS   = -std=c++11 -DFTDI_SPI -D__BASEFILE__=\"$*\"
-CXXFLAGS = -Wall -O3 -g
-LIBS     = -lftd2xx -lbcm2835
+CC       = g++
+CFLAGS   = -std=c++11 -DFTDI_SPI -D__BASEFILE__=\"$*\" -fpermissive
+CXXFLAGS = -Wall -O3 -g 
+LIBS     = -lbcm2835
 LMICBASE = ./
 INCLUDE  = -I$(LMICBASE) 
 
@@ -21,16 +21,13 @@ lora_tx.o: lora_tx.cpp
 HopeDuino_LoRa.o: HopeDuino_LoRa.cpp
 				$(CC) $(CFLAGS) -c HopeDuino_LoRa.cpp $(INCLUDE)
 
-ftdispill.o: ftdispill.c
-				$(CC) $(CFLAGS) -c ftdispill.c $(INCLUDE)
+raspi_SPI.o: raspi_SPI.cpp
+				$(CC) $(CFLAGS) -c raspi_SPI.cpp $(INCLUDE)
 
-HopeFtdi_SPI.o: HopeFtdi_SPI.cpp
-				$(CC) $(CFLAGS) -c HopeFtdi_SPI.cpp $(INCLUDE)
-
-lorarx: lora_rx.o HopeDuino_LoRa.o ftdispill.o HopeFtdi_SPI.o
+lorarx: lora_rx.o HopeDuino_LoRa.o raspi_SPI.o
 				$(CC) $^ $(LIBS) -o lorarx
 
-loratx: loea_tc.o HopeDuino_LoRa.o ftdispill.o HopeFtdi_SPI.o 
+loratx: loea_tc.o HopeDuino_LoRa.o raspi_SPI.o 
 				$(CC) $^ $(LIBS) -o loratx
 
 clean:

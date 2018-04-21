@@ -17,9 +17,9 @@
 /*                                                              Global variables                                                          */
 /******************************************************************************/
 #ifdef DEBUG_ENABLE
-//	int currentDebugLevel =  MSG_NOTICE;
+	int currentDebugLevel =  MSG_NOTICE;
 //        int currentDebugLevel = MSG_INFO;
-        int     currentDebugLevel = MSG_DEBUG;
+//        int     currentDebugLevel = MSG_DEBUG;
 #endif
 
 

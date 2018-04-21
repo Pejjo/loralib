@@ -26,15 +26,16 @@
 
 #include <HopeDuino_LoRa.h> 
 #include <stdio.h>
+#include <unistd.h>
 
 loraClass radio;
 
-byte getstr[21];
+byte getstr[100];
 
 void setup()
 {
  radio.Modulation     = LORA;
- radio.COB            = RFM98;
+ radio.COB            = RFM96;
  radio.Frequency      = 434000;
  radio.OutputPower    = 17;             //17dBm OutputPower
  radio.PreambleLength = 16;             //16Byte preamble
@@ -46,7 +47,9 @@ void setup()
  radio.BWSel          = BW125K;
  radio.CRSel          = CR4_5;
 
+ fprintf(stderr, "ini\n");
  radio.vInitialize();
+fprintf(stderr, "rx\n");
  radio.vGoRx();
 }
 
@@ -60,7 +63,12 @@ void loop()
  
 int main(void)
 {
+	fprintf(stderr, "Start\n");
 	setup();
-	while(1)
+	fprintf(stderr, "Run\n");
+
+	while(1) {
 		loop();
+		sleep(1);
+	}
 }

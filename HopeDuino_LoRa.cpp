@@ -25,7 +25,7 @@
  */
 
 #include "HopeDuino_LoRa.h"
-#include "hal.h"
+#include <stdio.h>
 /********************************************************** 
 **RF69 Regsister define                                      
 **********************************************************/ 
@@ -225,10 +225,11 @@
 **********************************************************/
 void loraClass::vInitialize(void)
 {
+ Spi.vSpiInit();
+
  ClrPOR();
  PORIn();
  DIO0In();
- Spi.vSpiInit();									//init port
  						
  FrequencyValue.Freq = (Frequency<<11)/125;			//calc frequency
  BitRateValue  = (SymbolTime<<5)/1000;				//calc bitrate
@@ -267,7 +268,6 @@ void loraClass::vInitialize(void)
  	RsOptimize = true;	
  else
  	RsOptimize = false;								
- 	
  vConfig();
  vGoStandby();
 }
@@ -632,7 +632,7 @@ bool loraClass::bSendMessage(byte msg[], byte length)
  else
  	{
  
- 	//µÈ´ý·¢ÉäÍê±Ï
+ 	// Timing
  	bittime  = SymbolTime/1000;		//unit: us
  	overtime = SyncLength+PreambleLength+length;
  	if(!FixedPktLength)				//SyncWord & PktLength & 2ByteCRC
@@ -669,8 +669,8 @@ bool loraClass::bSendMessage(byte msg[], byte length)
 byte loraClass::bGetMessage(byte msg[])
 {
  byte length;	
- if(DIO0_H())				//Receive CrcOk or PayloadReady
- 	{
+if(DIO0_H())				//Receive CrcOk or PayloadReady
+{
  	if(Modulation==LORA)
  		{
  		byte addr;	
@@ -698,7 +698,10 @@ byte loraClass::bGetMessage(byte msg[])
  	vGoRx();
  	return(length);
  	}
+else
+{
  return(0);
+}
 }
 
 /**********************************************************
@@ -835,7 +838,5 @@ byte loraClass::bSelectRamping(lword symbol)
  	return 0x01;					//2000us
  else 
  	return 0x00;
-}	
-	
-	
-	
+}
+

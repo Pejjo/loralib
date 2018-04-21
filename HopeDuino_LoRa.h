@@ -47,7 +47,7 @@
 		#define __DELAY_BACKWARD_COMPATIBLE__
 	#endif 
 
-	#include "HopeFtdi_SPI.h"
+	#include "raspi_SPI.h"
 	
 	typedef union  
 	{
