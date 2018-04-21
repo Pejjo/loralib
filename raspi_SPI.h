@@ -35,6 +35,8 @@
 		#define	nSS_Value	BCM2835_SPI_CS1
 		#define RPI_GPIO_INT	25
 		#define RPI_GPIO_RST	22
+		#define RPI_GPIO_BLU	23
+		#define RPI_GPIO_RED	24
         #elif
 
 		#error fix nSS value
@@ -59,6 +61,9 @@
 	#define _delay_ms(x) bcm2835_delay(x)
 	#define _delay_us(x) bcm2835_delayMicroseconds(x)
 
+	#define LED_RED	0x01
+	#define LED_BLU	0x02
+
 	class spiClass
 	{
 	 public:
@@ -67,8 +72,9 @@
 		byte bSpiRead(byte addr);			/** SPI read one byte **/
 		void vSpiBurstWrite(byte addr, byte *ptr, byte length);	/** SPI burst send N byte **/
 		void vSpiBurstRead(byte addr, byte *ptr, byte length);	 	/** SPI burst rend N byte **/
-		void vSetRst(byte state);
-		byte bGetInt(void);
+		void vSetRst(byte state);	// Set reset IO-line
+		byte bGetInt(void);		// Get Interupt IO-line
+		void vSetLed(int state);	// Set Leds
 	 private:
 	 	byte bSpiTransfer(byte dat);		/**	SPI send/read one byte **/
 	};

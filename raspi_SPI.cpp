@@ -178,3 +178,15 @@ byte spiClass::bGetInt(void)
 	return ret;
 }
 
+void spiClass::vSetLed(int state)
+{
+	if (state&LED_RED)
+	  bcm2835_gpio_set(RPI_GPIO_RED);
+	else
+	  bcm2835_gpio_clr(RPI_GPIO_RED);
+	if (state&LED_BLU)
+	  bcm2835_gpio_set(RPI_GPIO_BLU);
+	else
+          bcm2835_gpio_clr(RPI_GPIO_BLU);
+}
+
