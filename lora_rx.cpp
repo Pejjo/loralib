@@ -63,12 +63,14 @@ void loop()
  
 int main(void)
 {
+	int cnt=0;
 	fprintf(stderr, "Start\n");
 	setup();
 	fprintf(stderr, "Run\n");
 
 	while(1) {
-		loop();
-		sleep(1);
+		
+	  loop();
+	  sleep(0.5);
 	}
 }

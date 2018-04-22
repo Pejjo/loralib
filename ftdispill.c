@@ -292,6 +292,9 @@ int spi_getInt(FT_HANDLE *dev)
 	// FT2232H receive buffer
 	ftStatus |= FT_Read(*dev, &byInputBuffer, dwNumBytesToRead, &dwNumBytesRead); 
 
+	if (byInputBuffer[0]&0x10)
+		DBG(MSG_DEBUG, "IntPoll:%x\n", byInputBuffer[0]);	
+
 
         if (ftStatus != FT_OK)
         {

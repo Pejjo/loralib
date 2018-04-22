@@ -63,6 +63,7 @@
 
 	#define LED_RED	0x01
 	#define LED_BLU	0x02
+	#define LED_OFF	0x00
 
 	class spiClass
 	{

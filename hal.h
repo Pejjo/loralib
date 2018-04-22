@@ -10,8 +10,8 @@
 		#define POROut()
                 #define PORIn()
                 #define DIO0In()
-		#define _delay_ms delay
-		#define _delay_us delayMicroseconds
+		#define _delay_ms bcm2835_delay 
+		#define _delay_us bcm2835_delayMicroseconds
 		#define DIO0_H() Spi.bSpiChkInt()
 	#endif
 #endif

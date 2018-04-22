@@ -76,7 +76,8 @@ void spiClass::vSpiInit(void)
 	bcm2835_gpio_fsel(RPI_GPIO_INT, BCM2835_GPIO_FSEL_INPT);		//RPI1B+ & RPi2B <<Set as input
 	bcm2835_gpio_fsel(RPI_GPIO_RST, BCM2835_GPIO_FSEL_OUTP);		//RPI1B+ & RPi2B <<Set as output
 	bcm2835_gpio_set_pud(RPI_GPIO_INT, BCM2835_GPIO_PUD_UP);	
-
+	bcm2835_gpio_fsel(RPI_GPIO_BLU, BCM2835_GPIO_FSEL_OUTP);
+	bcm2835_gpio_fsel(RPI_GPIO_RED, BCM2835_GPIO_FSEL_OUTP);
 }
 
 

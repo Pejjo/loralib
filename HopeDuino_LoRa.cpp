@@ -562,6 +562,7 @@ bool loraClass::bSendMessage(byte msg[], byte length)
  lword overtime;
  word bittime;
 
+ Spi.vSetLed(LED_RED);
  if(Modulation==LORA)
  	{ 
  	Spi.vSpiWrite(((word)RegPayloadLength_LR<<8)+length);	
@@ -657,6 +658,7 @@ bool loraClass::bSendMessage(byte msg[], byte length)
  	else
  		return(true);
  	}
+	Spi.vSetLed(LED_OFF);
 }
 
 /**********************************************************
@@ -671,6 +673,8 @@ byte loraClass::bGetMessage(byte msg[])
  byte length;	
 if(DIO0_H())				//Receive CrcOk or PayloadReady
 {
+	Spi.vSetLed(LED_BLU);
+
  	if(Modulation==LORA)
  		{
  		byte addr;	
@@ -700,6 +704,7 @@ if(DIO0_H())				//Receive CrcOk or PayloadReady
  	}
 else
 {
+ Spi.vSetLed(LED_OFF);
  return(0);
 }
 }
