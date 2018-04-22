@@ -35,8 +35,8 @@
 		#define	nSS_Value	BCM2835_SPI_CS1
 		#define RPI_GPIO_INT	25
 		#define RPI_GPIO_RST	22
-		#define RPI_GPIO_BLU	23
-		#define RPI_GPIO_RED	24
+		#define RPI_GPIO_RED	23
+		#define RPI_GPIO_BLU	24
         #elif
 
 		#error fix nSS value
