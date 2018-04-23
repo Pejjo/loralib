@@ -33,8 +33,9 @@ loraClass radio;
 
 byte getstr[100];
 
-void setup()
-{
+int setup()
+{ 
+ int err;
  radio.Modulation     = LORA;
  radio.COB            = RFM96;
  radio.Frequency      = 434000;
@@ -48,10 +49,11 @@ void setup()
  radio.BWSel          = BW125K;
  radio.CRSel          = CR4_5;
 
- fprintf(stderr, "ini\n");
- radio.vInitialize();
-fprintf(stderr, "rx\n");
+ err=radio.iInitialize();
+ if (err)
+   return err; // quit 
  radio.vGoRx();
+ return err;
 }
 
 //void loop()
@@ -83,7 +85,11 @@ rfm_init(PyObject *self, PyObject *args)
 {
     if (!PyArg_ParseTuple(args, "")) /* No arguments */
         return NULL;
-    setup();
+    if (setup()==IOERR)
+    {
+	PyErr_SetString(PyExc_IOError, "SPI open failed. Permission?");
+        return NULL;
+    }
     return Py_None;
 }
 
@@ -91,15 +97,17 @@ rfm_init(PyObject *self, PyObject *args)
 static PyObject *
 rfm_poll(PyObject *self, PyObject *args)
 {
-    const char *response;
+    const char noresponse[]="";
     int sts;
 
     if (!PyArg_ParseTuple(args, "")) /* No arguments */
         return NULL;
 
     sts=radio.bGetMessage(getstr,100);
-
-    return Py_BuildValue("is", sts, getstr);
+    if (sts>0)
+      return Py_BuildValue("is", sts, getstr);
+    else // No data	
+      return Py_BuildValue("is", sts, noresponse);
 }
 
 static PyMethodDef rfmMethods[] = {

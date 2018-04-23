@@ -110,7 +110,7 @@
 		bwType BWSel;
 		crType CRSel;
 		
-		void vInitialize(void);
+		int  iInitialize(void);
 		void vConfig(void);
 		void vGoRx(void);
 		void vGoStandby(void);

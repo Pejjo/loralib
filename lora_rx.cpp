@@ -48,14 +48,15 @@ void setup()
  radio.CRSel          = CR4_5;
 
  fprintf(stderr, "ini\n");
- radio.vInitialize();
+ if (radio.iInitialize())
+   return 0;
 fprintf(stderr, "rx\n");
  radio.vGoRx();
 }
 
 void loop()
 {
- if(radio.bGetMessage(getstr)!=0)
+ if(radio.bGetMessage(getstr,100)!=0)
     {
     printf("%s\n",getstr);
     }  	

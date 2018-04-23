@@ -65,10 +65,12 @@
 	#define LED_BLU	0x02
 	#define LED_OFF	0x00
 
+	#define IOERR	0x01
+
 	class spiClass
 	{
 	 public:
-		void vSpiInit(void);				/** initialize hardware SPI config, SPI_CLK = Fcpu/4 **/	
+		int iSpiInit(void);				/** initialize hardware SPI config, SPI_CLK = Fcpu/4 **/	
 	 	void vSpiWrite(word dat);			/** SPI send one word **/
 		byte bSpiRead(byte addr);			/** SPI read one byte **/
 		void vSpiBurstWrite(byte addr, byte *ptr, byte length);	/** SPI burst send N byte **/

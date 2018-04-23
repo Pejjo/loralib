@@ -223,9 +223,12 @@
 **Input:    none
 **Output:   none
 **********************************************************/
-void loraClass::vInitialize(void)
+int loraClass::iInitialize(void)
 {
- Spi.vSpiInit();
+ int err;
+ err=Spi.iSpiInit();
+ if (err) // exit if error
+   return(err); 
 
  ClrPOR();
  PORIn();
@@ -270,6 +273,7 @@ void loraClass::vInitialize(void)
  	RsOptimize = false;								
  vConfig();
  vGoStandby();
+ return err;
 }
 
 /**********************************************************

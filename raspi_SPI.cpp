@@ -30,13 +30,15 @@
 **Func: 	Init Spi Config
 **Note: 	SpiClk = Fcpu/4
 **********************************************************/
-void spiClass::vSpiInit(void)
+int spiClass::iSpiInit(void)
 {
 	// Init lib
-	bcm2835_init();
+	if (bcm2835_init()==0)
+		return IOERR;
 
 	//Setup SPI pins
-        bcm2835_spi_begin();
+        if (bcm2835_spi_begin()==0)
+		return IOERR;
 
         //Set CS pins polarity to low
         bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, 0);
@@ -78,6 +80,7 @@ void spiClass::vSpiInit(void)
 	bcm2835_gpio_set_pud(RPI_GPIO_INT, BCM2835_GPIO_PUD_UP);	
 	bcm2835_gpio_fsel(RPI_GPIO_BLU, BCM2835_GPIO_FSEL_OUTP);
 	bcm2835_gpio_fsel(RPI_GPIO_RED, BCM2835_GPIO_FSEL_OUTP);
+	return 0;
 }
 
 
