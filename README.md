@@ -13,7 +13,8 @@ print (rfm.poll())
 
 ### Prerequisites
 
-You need the bcm2835 c-library installed.
+*You need the bcm2835 c-library installed.
+*Radio module connected to the Raspberry SPI-interface. I use my rfpi module. (https://github.com/Pejjo/rfpi)
 
 ### Installing
 
@@ -38,14 +39,12 @@ Feel free
 
 * Per Pejjo Johansson - Just a quick work to get my system up and running.
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
-* This project uses inspiration from
-** Hoperf's HopeDuino code (http://www.hoperf.com)
-** lupuen's LoraArduino (https://github.com/lupyuen/LoRaArduino)
+This project uses inspiration from
+* Hoperf's HopeDuino code (http://www.hoperf.com)
+* lupuen's LoraArduino (https://github.com/lupyuen/LoRaArduino)
