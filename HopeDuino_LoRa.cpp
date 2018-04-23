@@ -668,7 +668,7 @@ bool loraClass::bSendMessage(byte msg[], byte length)
 **Output:   packet length
 			0--------have no packet
 **********************************************************/
-byte loraClass::bGetMessage(byte msg[])
+byte loraClass::bGetMessage(byte msg[], int maxlen)
 {
  byte length;	
 if(DIO0_H())				//Receive CrcOk or PayloadReady
@@ -686,7 +686,9 @@ if(DIO0_H())				//Receive CrcOk or PayloadReady
  		
  		addr = Spi.bSpiRead(RegFifoRxCurrentAddr);			
  		Spi.vSpiWrite(((word)RegFifoAddrPtr<<8)+addr);
- 		length = Spi.bSpiRead(RegRxNbBytes);		
+ 		length = Spi.bSpiRead(RegRxNbBytes);
+		if (length>maxlen)
+			length=maxlen;		
  		Spi.vSpiBurstRead(RegFifo, msg, length);
  		Spi.vSpiWrite(((word)RegIrqFlags<<8)+AllIrqMask);	//Clear All Interrupt
  		}

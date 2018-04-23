@@ -116,7 +116,7 @@
 		void vGoStandby(void);
 		void vGoSleep(void);
 		bool bSendMessage(byte msg[], byte length);
-		byte bGetMessage(byte msg[]);
+		byte bGetMessage(byte msg[],int maxlen);
 		
 	private:
 	 	spiClass Spi;
